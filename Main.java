@@ -7,10 +7,12 @@ public class Main {
 
 		Logic logic = new Logic();
 		Player p1 = new Player();
+		Player p2 = new Player();
 
-		p1.dices = logic.diceroll("2");
+		p1.dices = logic.diceroll("0");
+		p2.dices = logic.diceroll("0");
 		
-		System.out.println(p1.dices);
+		p1.printScoreBoard();
 
 	}
 

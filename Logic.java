@@ -32,4 +32,9 @@ public class Logic {
 
 		return result;
 	}
+
+	public int rollCnt() {
+		return 1;
+	}
+
 }
