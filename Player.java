@@ -15,8 +15,12 @@ public class Player {
 	public void calcScore() {
 
 		for (int i = 0; i <= 5; i++) {
-			tempDiceScore[i] = (Collections.frequency(dices, i + 1) * (i+1));
-			tempDiceScore[6] += tempDiceScore[i]; // 마지막 total 계산할때 if문 넣어야함
+			tempDiceScore[i] = (Collections.frequency(dices, i + 1) * (i + 1));
+
+			if (diceScore[i] >= 0) {
+				tempDiceScore[6] += diceScore[i]; // 마지막 total 계산할때 if문 넣어야함
+			}
+
 		} // 1~6 값, total값
 
 		for (int dice : dices) {
@@ -51,19 +55,19 @@ public class Player {
 					}
 				}
 
-				if (temp.get(0) == temp.get(1)) {
-					for (int dice : dices) {
-						tempDiceScore[11] += dice;
-					}
-				}
 			}
-		} // fh
+		}
+		if (temp.size() == 2) {
+			if (temp.get(0) == temp.get(1)) {
+				for (int dice : dices) {
+					tempDiceScore[11] += dice;
+				}
+			} // fh
+		}
 
 		if (Collections.frequency(dices, dices.get(0)) == 5) {
 			tempDiceScore[12] = 50;
 		} // yac
-
-		boardCnt++;
 
 	}
 
@@ -83,7 +87,7 @@ public class Player {
 		}
 		System.out.println("===========================================");
 
-		Arrays.fill(tempDiceScore, 0);
+		
 	}
 
 	public void resetBoard() {

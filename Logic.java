@@ -15,26 +15,48 @@ public class Logic {
 		player.resetBoard();
 		System.out.println("시작합니다");
 
-
 		while (!(player.boardCnt >= 13)) {
 			System.out.println("남은 횟수 : " + (12 - player.boardCnt));
 			Scanner sc = new Scanner(System.in);
 
 			while (!(diceCnt >= 3)) {
 				select = diceSelect(sc);
-				if(select.equals("s")) {
+				if (select.substring(select.length() - 1).equals("번")) {
+					inputScore(select, player);
 					break;
 				}
 				player.dices = diceroll(select);
 				player.calcScore();
 				player.printScoreBoard();
 				System.out.println(player.dices);
+
+				if (diceCnt == 3) {
+					System.out.println("기회 종료 | 1번 2번 3번 형식으로 선택");
+					inputScore(sc.nextLine(), player);
+				}
+				Arrays.fill(player.tempDiceScore, 0);
+
 			}
 
 			diceCnt = 0; // 초기화
 
 		}
 
+	}
+
+	private void inputScore(String select, Player player) {
+		// TODO Auto-generated method stub
+		int selectNum = Integer.parseInt(select.replace("번", "")) - 1;
+
+		player.diceScore[selectNum] = player.tempDiceScore[selectNum];
+		for(int i:player.diceScore) {
+			System.out.println(i);
+		}
+		
+		for(int i:player.tempDiceScore) {
+			System.out.println(i);
+		}
+		player.boardCnt++;
 	}
 
 	private String diceSelect(Scanner sc) {
@@ -44,7 +66,7 @@ public class Logic {
 			diceCnt++;
 			return "0";
 		}
-		System.out.println("굴리지 않을 주사위 선택 (,) | 멈춤 (s) | " + "남은 기회 : " + (3 - diceCnt));
+		System.out.println("굴리지 않을 주사위 선택 (,) | 점수 입력 (1번,2번,3번) | " + "남은 기회 : " + (3 - diceCnt));
 		String result = sc.nextLine(); // 아래 선택 로직 짜야함
 
 		diceCnt++;
