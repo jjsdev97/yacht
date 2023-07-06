@@ -4,8 +4,6 @@ pratice logic with yacht
 <h3>작성 기간</h3> <br><br>
 07/03 ~ 07/06
 
-<hr>
-<h3>서버</h3>
 
 <hr>
 <h3>유효성 검사</h3>
