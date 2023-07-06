@@ -7,6 +7,7 @@ import java.util.Collections;
 public class Player {
 	public int boardCnt = 0; // 종료 시점 계산 위한 카운트
 	public ArrayList<Integer> dices = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1)); // 굴린 dice값 저장
+	public int scoreTotal = 0;
 
 	// 1, 2, 3, 4, 5, 6, 1~6total, 초이스, ss, ls, fk, fh, yacht
 	public int[] diceScore = new int[13];
@@ -54,6 +55,7 @@ public class Player {
 						temp.add(dices.get(j));
 					}
 				}
+				break;
 
 			}
 		}
@@ -72,22 +74,51 @@ public class Player {
 	}
 
 	public void printScoreBoard() {
+		int addtemp = 0;
+		int scoretemp = 0;
 		String score = "";
 		String[] scoreBoard = { "1", "2", "3", "4", "5", "6", "1-6", "초이스", "ss", "ls", "fk", "fh", "yacht" };
 
 		System.out.println("===========================================");
 		for (int i = 0; i < 13; i++) {
+
 			if (diceScore[i] == -1) {
 				score = "(" + tempDiceScore[i] + ")"; // 값 임시 저장 배열을 만들어서 우선 배열에 임시로 다 넣어놓고 if로 임시/진짜 나눠서 출력
 			} else {
 				score = String.valueOf(diceScore[i]);
 			}
 
+			if (i == 6) {
+				for (int j = 0; j < 6; j++) {
+					if (diceScore[j] == -1) {
+						addtemp++;
+					}
+					scoretemp += diceScore[j];
+				}
+				scoretemp += addtemp;
+
+				score = String.valueOf(scoretemp);
+				if (scoretemp > 63) {
+					scoreTotal += 25;
+					score = "63점 달성|25점 추가";
+				}
+
+			}
+
 			System.out.println(scoreBoard[i] + " : " + score);
 		}
+
+		for (int i = 0; i < diceScore.length; i++) {
+			if (diceScore[i] == -1) {
+				scoreTotal += 1;
+			}
+			scoreTotal += diceScore[i];
+		}
+		System.out.println("총점 : " + scoreTotal);
+
+		scoreTotal = 0;
 		System.out.println("===========================================");
 
-		
 	}
 
 	public void resetBoard() {
